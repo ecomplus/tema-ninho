@@ -1,6 +1,35 @@
-html {
-  scroll-behavior: smooth;
+/*
+ * Design system da variante Ninho (bebê e infantil).
+ *
+ * O eixo do tema é FASE, não departamento. Quem compra para bebê não procura
+ * "enxoval": procura "o que serve agora, para 4 meses". Isso aparece no
+ * design como uma faixa de faixa etária que fica sempre visível e como um
+ * card que sempre carrega a fase da peça. Ver `sections/FaseSection.astro`.
+ *
+ * Contra o resto do conjunto: é o tema mais arredondado (raio 0.875rem) e o
+ * único com terminação redonda na tipografia. A Lapidar é o extremo oposto —
+ * canto reto, serifada. As duas juntas delimitam a amplitude que a plataforma
+ * cobre.
+ *
+ * ATENÇÃO — `customCode.css` do CMS não funciona hoje (o `<style>` do
+ * `Base.astro` no pacote não interpola a expressão). Fontes definidas aqui.
+ */
+
+:root {
+  --custom-font-sans: 'Nunito Sans';
+  --font-brand: 'Baloo 2', 'Nunito Sans', sans-serif;
 }
+
+/*
+ * `html:root` e não `:root`: este arquivo é importado ANTES de `uno.css` em
+ * `layouts/Base.astro`, então o `--c-background: #fff` do `assets/base.css` do
+ * pacote viria depois e ganharia no desempate por ordem.
+ */
+html:root {
+  --c-background: #fdfbf7;
+}
+
+html { scroll-behavior: smooth; }
 body {
   overflow-x: hidden;
   overflow-y: scroll;
@@ -16,72 +45,70 @@ a, button, button > *, [role=button], [role=button] > * {
 }
 
 .ui-link {
-  @apply font-medium text-primary underline underline-offset-4
+  @apply font-semibold text-primary underline underline-offset-4
   hover:text-primary-bold active:text-primary-subtle;
 }
 
+/* Pílula cheia, sem uppercase: caixa alta em tema infantil lê como aviso. */
 [class*=ui-btn] {
-  @apply inline-block text-base font-medium px-4 py-2 rounded
-  border-2 border-transparent underline-offset-4 decoration-2
-  shadow focus:ring-1 focus:ring-offset-1 active:ring-2;
+  @apply inline-block text-sm font-bold normal-case tracking-normal
+  px-6 py-2.5 rounded-full border-2 border-transparent
+  focus:ring-2 focus:ring-offset-2 active:ring-2;
 }
-.ui-btn-sm {
-  @apply text-sm px-3 py-1.5 border-1;
-}
-.ui-btn-lg {
-  @apply text-lg font-bold px-6 py-3 lg:text-base lg:py-2.5 active:ring-3;
-}
+.ui-btn-sm { @apply text-xs px-4 py-1.5 border-1; }
+.ui-btn-lg { @apply text-base px-8 py-3.5; }
 .ui-btn-primary {
-  @apply primary border-primary hover:primary-bold ring-primary/30;
+  @apply bg-primary text-white border-primary
+  hover:bg-primary-bold ring-primary/30;
 }
+/* Terracota só na ação secundária de destaque (lista de presentes). */
 .ui-btn-secondary {
-  @apply bg-secondary-100/50 text-secondary border-secondary
-  hover:secondary ring-secondary/30;
+  @apply bg-secondary text-base-900 border-secondary
+  hover:bg-secondary-400 ring-secondary/40;
 }
 .ui-btn-contrast {
-  @apply bg-white text-primary hover:bg-primary-100 ring-white/30
-  decoration-primary-300 underline shadow-none;
+  @apply bg-white text-primary border-white hover:bg-base-100 ring-white/40 shadow-none;
 }
 .ui-btn-danger {
   @apply bg-danger-50 text-danger-700 border-danger-100
-  hover:bg-danger-600 hover:text-white
-  hover:border-danger-600 ring-danger-600/30;
+  hover:bg-danger-600 hover:text-white hover:border-danger-600 ring-danger-600/30;
 }
 
 .ui-text-brand, .ui-title {
-  @apply font-brand font-black italic;
+  @apply font-brand font-bold not-italic normal-case;
 }
 .ui-title {
-  @apply text-3xl xl:text-5xl text-balance;
+  @apply text-3xl xl:text-5xl leading-[1.1] tracking-[-0.01em] text-balance
+  text-base-900;
+}
+
+/*
+ * Etiqueta de fase. É o componente que só existe nesta variante: aparece no
+ * card, na faixa de navegação e no filtro, sempre com a mesma forma, para que
+ * o cliente aprenda a reconhecê-la em uma tela e usá-la nas outras.
+ */
+.ui-fase {
+  @apply inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-0.5
+  text-[0.6875rem] font-bold leading-tight text-primary-bold;
 }
 
 [class*=ui-badge] {
-  @apply text-center px-2.5 py-0.5 rounded-md font-semibold
-  inline-block bg-secondary-200 text-secondary-900;
+  @apply text-center px-2.5 py-0.5 rounded-full text-xs font-bold
+  normal-case inline-block bg-secondary text-base-900;
 }
-[class*=ui-badge-pill] {
-  @apply text-sm leading-relaxed py-0 rounded-full;
-}
-.ui-badge-pill-sm {
-  @apply text-xs min-w-[1rem] px-0.5;
-}
-.ui-badge-pill-lg {
-  @apply text-lg min-w-[1.75rem] px-2;
-}
+[class*=ui-badge-pill] { @apply text-sm leading-relaxed py-0; }
+.ui-badge-pill-sm { @apply text-xs min-w-[1rem] px-0.5; }
+.ui-badge-pill-lg { @apply text-lg min-w-[1.75rem] px-2; }
 
 .ui-alert {
   @apply bg-warning-100 text-warning-800 border-warning-200
-  border text-base rounded px-4 py-3;
+  border text-base rounded-2xl px-5 py-3.5;
 }
 
 [class*=ui-section] {
   @apply w-full mx-auto px-[1px] max-w-[calc(100vw-2rem)]
-  sm:max-w-[calc(100vw-3rem)] md:max-w-[calc(100vw-4rem)]
-  xl:max-w-[min(80rem,calc(100vw-6rem))];
+  sm:max-w-[calc(100vw-3rem)] md:max-w-[calc(100vw-5rem)]
+  xl:max-w-[min(82rem,calc(100vw-5rem))];
 }
-.ui-section {
-  @apply my-6 md:my-8;
-}
-.ui-section-slim {
-  @apply my-3;
-}
+.ui-section { @apply my-7 md:my-11; }
+.ui-section-slim { @apply my-3; }

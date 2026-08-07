@@ -1,41 +1,45 @@
 {
-  "metaTitle": "",
-  "metaDescription": "",
+  "metaTitle": "Ninho — enxoval, quarto e passeio por fase do bebê",
+  "metaDescription": "A vitrine se organiza pela idade do bebê, não pelo departamento. Com lista de presentes para o chá.",
   "hero": {
     "autoplay": 9000,
     "slides": [
       {
         "startsAt": "",
         "endsAt": "",
-        "img": "/img/uploads/rect89.webp",
-        "alt": "Headset banner",
-        "mobileImg": "/img/uploads/headphone.webp",
-        "href": "/headset",
-        "title": "20% off on first purchase",
-        "subtitle": "At demoStore you can shop the best tech of 2023. Enjoy and get 10% off on your first purchase!",
-        "buttonLink": "/",
-        "buttonText": "See"
+        "img": "/img/uploads/hero-quarto-desk.jpg",
+        "alt": "Quarto de bebê com berço branco e poltrona",
+        "mobileImg": "/img/uploads/hero-quarto-mob.jpg",
+        "href": "",
+        "title": "O que serve agora, primeiro",
+        "subtitle": "Escolha a fase do bebê e a loja se reorganiza em volta dela — enxoval, passeio e alimentação juntos.",
+        "buttonLink": "/enxoval-e-quarto",
+        "buttonText": "Começar pelo quarto"
       },
       {
         "startsAt": "",
         "endsAt": "",
-        "img": "/img/uploads/rect859.png",
-        "alt": "",
-        "mobileImg": "",
+        "img": "/img/uploads/hero-passeio-desk.jpg",
+        "alt": "Casal caminhando com carrinho de bebê por trilha arborizada",
+        "mobileImg": "/img/uploads/hero-passeio-mob.jpg",
         "href": "",
-        "title": "",
-        "subtitle": "",
-        "buttonLink": "",
-        "buttonText": ""
+        "title": "Monte a lista do chá",
+        "subtitle": "Junte o que falta e compartilhe o link. Quem presenteia vê o que já foi comprado.",
+        "buttonLink": "/p/lista-de-presentes",
+        "buttonText": "Criar lista"
       }
     ]
   },
   "sections": [
     {
+      "type": "c:fase",
+      "title": "Em que fase está seu bebê?"
+    },
+    {
       "type": "product-shelf",
       "collectionIdAndInfo": null,
-      "sort": "-price_discount,-sales",
-      "title": "",
+      "sort": "-sales",
+      "title": "Os queridinhos das famílias",
       "isHeadless": false,
       "isShuffle": false,
       "limit": 12,
@@ -45,19 +49,37 @@
       "type": "banners-grid",
       "banners": [
         {
-          "img": "/img/uploads/rect8589.png",
-          "href": ""
+          "img": "/img/uploads/banner-enxoval.jpg",
+          "alt": "Móbile de elefante e bandeirolas em quarto de bebê",
+          "href": "/enxoval-e-quarto",
+          "title": "Enxoval",
+          "subtitle": "Do kit berço à manta"
         },
         {
-          "img": "/img/uploads/passion.webp",
-          "href": ""
+          "img": "/img/uploads/banner-quarto.jpg",
+          "alt": "Bebê dormindo em cama com roupa de cama cinza e branca",
+          "href": "/enxoval-e-quarto",
+          "title": "Quarto e berço",
+          "subtitle": "Ninho, lençol e blackout"
         },
         {
-          "img": "/img/uploads/rect89.webp",
-          "href": "",
-          "mobileImg": "/img/uploads/headphone.webp"
+          "img": "/img/uploads/banner-roupas.jpg",
+          "alt": "Roupas dobradas em tons neutros",
+          "href": "/passeio-e-alimentacao",
+          "title": "Passeio e alimentação",
+          "subtitle": "Carrinho, cadeirinha e mamadeira"
         }
       ]
+    },
+    {
+      "type": "product-shelf",
+      "collectionIdAndInfo": null,
+      "sort": "-price_discount",
+      "title": "Em promoção",
+      "isHeadless": false,
+      "isShuffle": false,
+      "limit": 12,
+      "page": 1
     }
   ]
 }

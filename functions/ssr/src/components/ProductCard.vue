@@ -1,98 +1,112 @@
+<!--
+  Card de produto — variante Ninho (bebê e infantil).
+
+  ── A ETIQUETA DE FASE ───────────────────────────────────────────────────
+  O que só existe aqui é a `.ui-fase` no topo da foto. Ela repete, no card, o
+  mesmo vocabulário da `FaseSection` da home: o cliente aprende os cortes de
+  idade numa tela e reconhece nas outras. É o eixo do tema — quem compra para
+  bebê não pergunta a categoria, pergunta se serve na idade.
+
+  Deixá-la SOBRE a foto e não abaixo do nome é proposital: ela precisa ser
+  legível na varredura da vitrine, antes da leitura do título.
+
+  ATENÇÃO: a fase aqui é ESTÁTICA. Ligar de verdade depende de ela estar
+  cadastrada como especificação de produto. Consta no README.
+
+  ── FORMA ────────────────────────────────────────────────────────────────
+  Raio grande, sem borda, sombra suave — o oposto do canto reto da Bitola e da
+  Lapidar. Foto quadrada com respiro interno: enxoval fotografado costuma vir
+  com fundo claro, e a moldura branca em volta faz a peça parecer embalada.
+-->
 <template>
   <article
     ref="card"
     :data-sku="product.sku"
-    class="group relative mx-auto h-full max-w-[350px] px-0.5 py-3 hover:z-[1]"
+    class="group relative mx-auto h-full max-w-[320px] py-2"
   >
-    <ALink
-      :href="link"
-      class="flex h-full flex-col overflow-hidden rounded bg-white
-      ring-black/5 group-hover:shadow group-hover:ring-1"
+    <div
+      class="flex h-full flex-col overflow-hidden rounded-3xl bg-white p-2.5
+      shadow-sm transition hover:shadow-md"
     >
-      <div class="aspect-square p-2
-        transition-transform md:group-hover:scale-110">
-        <div class="relative size-full overflow-hidden
-          rounded bg-white group-hover:rounded-none">
-          <span v-if="images?.length" class="text-xs text-opacity-70">
-            <AImg
-              :picture="images[0]"
-              :alt="title"
-              class="absolute left-0 top-0 block size-full object-cover"
-            />
-            <AImg
-              v-if="!isMobile && images[1] && wasHoveredOnce"
-              :picture="images[1]"
-              :alt="title"
-              class="absolute left-0 top-0 z-10 block size-full
-              object-cover text-transparent opacity-0 transition-opacity
-              group-hover:opacity-100 motion-safe:duration-300"
-            />
-          </span>
-          <div
-            v-else
-            class="size-full bg-gradient-to-br from-base-50/20 to-base-100"
+      <ALink :href="link" class="flex grow flex-col no-underline">
+        <div class="relative overflow-hidden rounded-2xl bg-base-100">
+          <AImg
+            v-if="images?.length"
+            :picture="images[0]"
+            :alt="title"
+            class="block aspect-square w-full object-cover transition-transform
+            duration-500 md:group-hover:scale-105"
           />
+          <div v-else class="aspect-square w-full bg-base-100" />
+
+          <span class="absolute left-2 top-2 z-20 bg-white/90 ui-fase">
+            0 a 3 meses
+          </span>
+          <span
+            v-if="discountPercentage"
+            class=":uno: absolute right-2 top-2 z-20 rounded-full bg-secondary
+            px-2 py-0.5 text-[0.6875rem] font-bold text-base-900"
+          >
+            -{{ discountPercentage }}%
+          </span>
         </div>
-      </div>
-      <span
-        v-if="discountPercentage"
-        class=":uno: absolute right-2 top-9
-        bg-secondary/70 py-0.5 pl-3 pr-1.5 text-xs text-on-secondary
-        transition-transform [clip-path:polygon(20%_0,100%_0,100%_100%,0_100%)]
-        md:group-hover:translate-x-2 md:group-hover:scale-110"
-      >
-        -<strong>{{ discountPercentage }}</strong>%
-      </span>
-      <div class="relative z-10 flex grow flex-col justify-between p-4">
+
         <component
           :is="headingTag"
-          class="line-clamp-2 no-underline ui-link"
-          :class="[
-            isActive ? 'text-base-700' : 'text-base-500',
-            link ? 'group-hover:text-primary group-hover:underline' : null,
-          ]"
+          class="mt-3 line-clamp-2 px-1 text-sm font-semibold leading-snug"
+          :class="isActive ? 'text-base-900' : 'text-base-500'"
         >
           {{ title }}
         </component>
-        <div class="pt-2">
-          <div v-if="isActive">
+
+        <div class="mt-auto px-1 pt-2">
+          <div v-if="isActive" class="[&_*]:font-bold [&_.text-xl]:text-xl">
             <Prices :product="product" />
           </div>
-          <span v-else class="bg-warning-100 text-warning-700 ui-badge">
+          <span v-else class="bg-warning-100 text-warning-800 ui-badge">
             {{ !isInStock ? $t.i19outOfStock : $t.i19inactive }}
           </span>
         </div>
-        <div v-if="isFailedToCart" class="pt-1 text-sm text-warning-800">
-          {{ $t.i19someItemIsUnavailable }}
-        </div>
+      </ALink>
+
+      <!--
+        Duas ações lado a lado, e a segunda é a que caracteriza o nicho: quem
+        navega loja de bebê muitas vezes NÃO está comprando — está montando a
+        lista do chá. Sem esse caminho a visita se perde.
+
+        Fica fora do `ALink` (botão dentro de `<a>` navega ao clicar).
+      -->
+      <div v-if="isActive && !hasVariations" class="flex gap-1.5 px-1 pb-1 pt-3">
         <button
-          v-if="isActive && !hasVariations && !isFailedToCart"
-          class=":uno: absolute -top-6 left-0 -z-10 hidden w-full
-          rounded-none opacity-0 transition ui-btn-sm ui-btn-primary
-          group-hover:z-10 group-hover:opacity-100 md:block"
-          :style="buyCtaColor
-            ? `background: ${buyCtaColor}; border-color: ${buyCtaColor}`
-            : null"
+          class=":uno: grow ui-btn-sm ui-btn-primary"
           @click.stop.prevent="loadToCart(1)"
         >
-          <span class="mr-1 inline-block text-on-primary opacity-80">
-            &plus;
-          </span>
           {{ $t.i19addToCart }}
         </button>
+        <a
+          :href="`/p/lista-de-presentes?sku=${encodeURIComponent(product.sku || '')}`"
+          class=":uno: shrink-0 ui-btn-sm ui-btn-secondary"
+          aria-label="Adicionar à lista de presentes"
+          title="Adicionar à lista de presentes"
+        >
+          <!-- Nome CRU do Solar: lá não existe `gift`, só `gift-bold`,
+               `gift-linear` etc. `i-gift` sozinho não casa e o UnoCSS falha
+               em silêncio. -->
+          <i class="size-4 i-gift-linear"></i>
+        </a>
       </div>
-    </ALink>
+      <p v-if="isFailedToCart" class="px-1 pt-1 text-xs text-warning-800">
+        {{ $t.i19someItemIsUnavailable }}
+      </p>
+    </div>
   </article>
 </template>
 
 <script setup lang="ts">
-import { useElementHover } from '@vueuse/core';
 import {
   type Props as UseProductCardProps,
   useProductCard,
 } from '@@sf/composables/use-product-card';
-import { isMobile } from '@@sf/sf-lib';
-import { getAbValue } from '@@sf/state/ab-experiment';
 import Prices from '~/components/Prices.vue';
 
 export type Props = UseProductCardProps & {
@@ -114,11 +128,4 @@ const {
   isFailedToCart,
 } = useProductCard(props as UseProductCardProps);
 const card = ref<HTMLElement | null>(null);
-const isHovered = useElementHover(card);
-const wasHoveredOnce = ref(false);
-const unwatch = watch(isHovered, () => {
-  wasHoveredOnce.value = true;
-  unwatch();
-});
-const buyCtaColor = getAbValue('buyCtaColor');
 </script>

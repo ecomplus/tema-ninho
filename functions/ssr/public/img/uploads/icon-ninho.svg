@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Ninho">
+  <rect width="64" height="64" rx="18" fill="#5d8a6a" />
+  <ellipse cx="32" cy="28" rx="9.5" ry="12.5" fill="#e9a08c" />
+  <g stroke="#fdfbf7" stroke-width="4" stroke-linecap="round" fill="none">
+    <path d="M15 37c0 9 8 15 17 15s17-6 17-15" />
+    <path d="M11 42c2 10 11 17 21 17s19-7 21-17" />
+  </g>
+</svg>

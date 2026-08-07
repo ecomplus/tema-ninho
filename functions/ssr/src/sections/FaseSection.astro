@@ -1,0 +1,95 @@
+---
+/*
+  NAVEGAÇÃO POR FASE — a seção que justifica esta variante existir.
+
+  O catálogo infantil é organizado por departamento (enxoval, passeio,
+  alimentação) porque é assim que o estoque é organizado. Só que ninguém
+  compra assim. Quem compra pergunta "meu filho tem 4 meses, o que serve
+  agora?" — e a resposta atravessa TODOS os departamentos ao mesmo tempo.
+
+  Esta faixa é esse eixo transversal. Cada fase leva a uma busca; a fase que o
+  cliente escolher fica marcada, e a mesma etiqueta (`.ui-fase`) reaparece no
+  card de produto, para que ele reconheça o vocabulário de uma tela na outra.
+
+  ── O QUE É REAL E O QUE É DEMONSTRAÇÃO ──────────────────────────────────
+  As fases abaixo são ESTÁTICAS e viram termo de busca. Numa loja publicada
+  isso seria uma especificação de produto (`specifications.fase.value`) e o
+  link viraria filtro por spec — o mesmo mecanismo que a Bitola usa para
+  bitola e rosca. Cadastrar a spec é o que liga de verdade.
+
+  `/s?q=` e não `/s/<termo>`: no build estático só `/s/` é pré-renderizado, e
+  qualquer `/s/<termo>` cai na página de erro.
+*/
+import type { CmsFields, InferCmsOutput } from '@@sf/content';
+
+export const cmsFields = ({
+  title: {
+    widget: 'string',
+    label: { pt: 'Título', en: 'Title' },
+  },
+}) as const satisfies CmsFields;
+
+export type Props = InferCmsOutput<typeof cmsFields>;
+const { title = 'Em que fase está seu bebê?' } = Astro.props;
+
+/*
+  Os cortes seguem as viradas de uso reais, não uma régua bonita: 0-3 é
+  enxoval e berço; 3-6 entra alimentação; 6-12 o bebê senta e engatinha;
+  1-2 anos anda. Gestante vem antes de tudo porque é quando se monta a lista.
+*/
+const fases = [
+  { rotulo: 'Gestante', apoio: 'montando o enxoval', busca: 'enxoval' },
+  { rotulo: '0 a 3 meses', apoio: 'berço e recém-nascido', busca: 'berço recém-nascido' },
+  { rotulo: '3 a 6 meses', apoio: 'primeira papinha', busca: 'alimentação bebê' },
+  { rotulo: '6 a 12 meses', apoio: 'senta e engatinha', busca: 'cadeira alimentação' },
+  { rotulo: '1 a 2 anos', apoio: 'já anda', busca: 'copo transição' },
+];
+---
+
+<section class="ui-section">
+  {/* `/15` e não `/8`: com 8% o sálvia sumia contra o fundo creme e a faixa
+      lia como um bloco cinza qualquer — visto no print, não no código. */}
+  <div class="rounded-3xl bg-primary/15 px-5 py-6 md:px-8 md:py-7">
+    <h2 class="ui-text-brand text-xl text-base-900 md:text-2xl">
+      {title}
+    </h2>
+    <p class="mt-1 text-sm text-base-600">
+      A vitrine se reorganiza em torno da fase — o que serve agora vem primeiro,
+      não importa de que categoria seja.
+    </p>
+
+    {/*
+      Rolagem horizontal no mobile em vez de quebra de linha: cinco fases em
+      duas linhas curtas viram um bloco denso, e denso é o oposto do que este
+      tema quer. `snap` para o toque parar em cima de uma fase inteira.
+    */}
+    <ul
+      class="-mx-5 mt-4 flex snap-x snap-mandatory gap-2.5 overflow-x-auto px-5
+      pb-1 md:mx-0 md:flex-wrap md:overflow-visible md:px-0"
+    >
+      {fases.map(({ rotulo, apoio, busca }) => (
+        <li class="shrink-0 snap-start">
+          <a
+            href={`/s?q=${encodeURIComponent(busca)}`}
+            class="group flex min-w-[9.5rem] flex-col rounded-2xl border-2
+            border-transparent bg-white px-4 py-3 no-underline shadow-sm
+            transition hover:border-primary hover:shadow"
+          >
+            <span class="font-brand text-base font-bold leading-tight
+              text-base-900 transition group-hover:text-primary">
+              {rotulo}
+            </span>
+            <span class="mt-0.5 text-xs leading-snug text-base-500">
+              {apoio}
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <p class="mt-3 text-[0.6875rem] leading-relaxed text-base-500">
+      Vitrine de demonstração: a fase vira uma busca por texto. Numa loja
+      publicada ela é especificação de produto, e o filtro é exato.
+    </p>
+  </div>
+</section>

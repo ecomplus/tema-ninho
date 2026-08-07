@@ -6,35 +6,45 @@
   },
   "customCode": {
     "css": "",
-    "htmlHead": "",
+    "htmlHead": "<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\"><link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin><link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Nunito+Sans:wght@400;600;700&display=swap\">",
     "htmlBody": ""
   },
   "header": {
     "pitchBar": [
       {
-        "href": "/promotion",
-        "html": "Aproveite nossos descontos de até 50%!"
+        "href": "/p/lista-de-presentes",
+        "html": "<b>Lista de presentes</b> <d-md>monte o chá de bebê e compartilhe o link</d-md>"
+      },
+      {
+        "href": "/p/fases",
+        "html": "<b>Filtre por fase</b> <d-md>só aparece o que serve na idade do seu bebê</d-md>"
       },
       {
         "href": "",
-        "html": "<b>Frete grátis</b> <d-md>para todo Brasil</d-md> a partir de {free_shipping_from_value}"
+        "html": "<b>Frete grátis</b> <d-md>para todo o Brasil</d-md> a partir de {free_shipping_from_value}"
       }
     ],
     "inlineMenuCategories": {
-      "featured": [],
-      "random": 7
+      "featured": [
+        "enxoval-e-quarto",
+        "passeio-e-alimentacao"
+      ],
+      "random": 0
     },
-    "isAlphabeticalSortSubmenu": false
+    "isAlphabeticalSortSubmenu": true
   },
   "footer": {
     "categoriesList": {
       "isActive": true,
-      "title": "",
-      "slugs": []
+      "title": "Categorias",
+      "slugs": [
+        "enxoval-e-quarto",
+        "passeio-e-alimentacao"
+      ]
     },
     "pagesList": {
       "isActive": true,
-      "title": "",
+      "title": "Ajuda",
       "links": []
     },
     "stamps": [
