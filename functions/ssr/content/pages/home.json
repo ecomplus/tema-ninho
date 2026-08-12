@@ -37,7 +37,7 @@
     },
     {
       "type": "product-shelf",
-      "collectionIdAndInfo": null,
+      "collectionIdAndInfo": "6a7bca4c1b2a366caaeb32da:categories:Enxoval e quarto:/enxoval-e-quarto",
       "sort": "-sales",
       "title": "Os queridinhos das famílias",
       "isHeadless": false,
@@ -73,7 +73,7 @@
     },
     {
       "type": "product-shelf",
-      "collectionIdAndInfo": null,
+      "collectionIdAndInfo": "6a7bca4f1b2a366caaeb32f4:categories:Passeio e alimentação:/passeio-e-alimentacao",
       "sort": "-price_discount",
       "title": "Em promoção",
       "isHeadless": false,
